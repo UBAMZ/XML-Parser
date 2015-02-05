@@ -5,8 +5,16 @@ use Devel::CheckLib;
 
 use Config;
 
-$expat_libpath = '';
-$expat_incpath = '';
+#---------------------------------------------------------------------------
+# UBAMZ: We build our own expat libraries so they are not installed in the
+# standard location. Therefore, we need to customize the build so it links
+# against the correct libraries. Normally, you could just pass EXPATLIBPATH
+# and EXPATINCPATH parameters to Makefile.PL. But we added these environment
+# variable hooks so that you can set those parameters whilst using cpanm.
+#---------------------------------------------------------------------------
+
+$expat_libpath = $ENV{EXPATLIBPATH} || '';
+$expat_incpath = $ENV{EXPATINCPATH} || '';
 
 my @replacement_args;
 
